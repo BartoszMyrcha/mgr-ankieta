@@ -8,6 +8,7 @@ var iterator = 0;
 for(var i=1; i<=Speakers; i++) {
     recordings.push(i + "." + 1 + ".wav");
     recordings.push(i + "." + 2 + ".wav");
+    if (i==4) continue;
     recordings.push(i + "." + 3 + ".wav");
 }
 
@@ -154,7 +155,8 @@ function nextButtonClick() {
         loadNextRecording(recordPath);
     } else {
         alert("Finished. Thank you for your time.")
-        // sendResults();
+        sendResults("bartosz.myrcha@gmail.com", "Wyniki ankiety", JSON.stringify(results));
+        alert("Results has been successfully sent.\nYou can close this page now.")
     }  
 }
 
@@ -181,9 +183,33 @@ function getRecordPath(recording) {
     return "nagrania/" + speakerNumber + "/" + speakerNumber + "." + recordNumber + ".wav"
 }
 
-function manipulatePicker(property, value){
+function manipulatePicker(property, value) {
     var picker = document.getElementById("picker-wrapper")
     switch(property){
         case "display": picker.style.display = value; break;
     }
+}
+
+function sendResults(subject, content) {
+    $.ajax({
+        type: "POST",
+        url: "https://mandrillapp.com/api/1.0/messages/send.json",
+        data: {
+          'key': "ESmAzq_XBCA7KtD8iKdkoQ",
+          'message': {
+            'from_email': "ankieta.mgr.idio@gmail.com",
+            'to': [
+                {
+                  'email': "ankieta.mgr.idio@gmail.com",
+                  'type': 'to'
+                }
+              ],
+            'autotext': 'true',
+            'subject': subject,
+            'html': content
+          }
+        }
+       }).done(function(response) {
+         console.log(response);
+       });
 }
