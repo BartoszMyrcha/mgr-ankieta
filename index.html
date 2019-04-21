@@ -3,39 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>Test</title>
-
         <!-- Material Design for Bootstrap -->
         <link href="css/custom.css" rel="stylesheet">
-        
+        <script src="js/mainWindow.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
         <script src="js/piklor.js"></script>
-        <script src="js/handler.js"></script>
-        <script>
-            function manipulatePicker(property, value){
-                var picker = document.getElementById("picker-wrapper")
-                switch(property){
-                    case "display": picker.style.display = value; break;
-                }
-            }
-        </script>
     </head>
     <body>
-        <div align="center">
-            <!-- Audio -->
-            <audio controls onended="manipulatePicker('display', 'block')">
-                <source src="nagrania/1/1.1.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
-            <div class="picker-wrapper" id="picker-wrapper" hidden>
-                <button class="btn btn-default">Select color</button>
-                <div class="color-picker"></div>
-                <div class="color-selected"></div>
-                <input type="text" disabled="true" class="picker-text" hidden>
-            </div>
-            <p>
-                <button class="nextButton" disabled="True">Next</button>
-            </p>
-        </div>
+        <div id="mainDiv"></div>
     </body>
 </html>
