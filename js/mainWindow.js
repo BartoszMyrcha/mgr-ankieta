@@ -12,9 +12,7 @@ for(var i=1; i<=Speakers; i++) {
     recordings.push(i + "." + 3 + ".wav");
 }
 
-console.log(recordings);
 recordings = shuffle(recordings);
-console.log(recordings);
 
 window.onload = function () {
     initialize_subDiv()
@@ -35,7 +33,7 @@ function initialize_subDiv() {
     if (parent != null) {
         parent.appendChild(div);   
     } else {
-        console.log("Parent not found.")
+        console.error("Parent not found.")
     }
 }
 
@@ -53,7 +51,6 @@ function loadNextRecording(audioPath) {
     let player = document.getElementById("player")
     playerSource.src = audioPath;
     player.load()
-    console.log("Loaded new recording: " + audioPath);
 }
 
 function insertColorPalette(parent) {
@@ -139,14 +136,12 @@ function shuffle(array) {
 function nextButtonClick() {
     let textBox = document.getElementById("picker-text");
     let color = textBox.value;
-    results.push({"Recording": recordings[iterator], "Color": color})
-    console.log(results)
+    results.push({"Nagranie": recordings[iterator], "Kolor": color})
     iterator++;
-
+    let nextbutton = document.getElementById("nextbutton");
+    nextbutton.setAttribute("disabled", "true");
+    
     if (iterator < recordings.length) {
-        let nextbutton = document.getElementById("nextbutton");
-        nextbutton.setAttribute("disabled", "true");
-
         let selectedCol = document.getElementById("color-selected");
         selectedCol.removeAttribute('style');
         manipulatePicker('display', 'none');
@@ -154,10 +149,9 @@ function nextButtonClick() {
         let recordPath = getRecordPath(recordings[iterator]);
         loadNextRecording(recordPath);
     } else {
-        alert("Finished. Thank you for your time.")
-        sendResults("bartosz.myrcha@gmail.com", "Wyniki ankiety", JSON.stringify(results));
-        alert("Results has been successfully sent.\nYou can close this page now.")
-    }  
+        alert("Koniec. Dziękujemy za udział w ankiecie.")
+        sendResults("Wyniki ankiety", JSON.stringify(results));
+    }
 }
 
 function appendChild(parent, element) {
@@ -191,25 +185,18 @@ function manipulatePicker(property, value) {
 }
 
 function sendResults(subject, content) {
-    $.ajax({
-        type: "POST",
-        url: "https://mandrillapp.com/api/1.0/messages/send.json",
-        data: {
-          'key': "ESmAzq_XBCA7KtD8iKdkoQ",
-          'message': {
-            'from_email': "ankieta.mgr.idio@gmail.com",
-            'to': [
-                {
-                  'email': "ankieta.mgr.idio@gmail.com",
-                  'type': 'to'
-                }
-              ],
-            'autotext': 'true',
-            'subject': subject,
-            'html': content
-          }
-        }
-       }).done(function(response) {
-         console.log(response);
-       });
+    Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "ankieta.mgr.idio@gmail.com",
+        Password : "0a58da0a-c0e1-4529-9851-50566171662c",
+        To : 'ankieta.mgr.idio@gmail.com',
+        From : "ankieta.mgr.idio@gmail.com",
+        Subject : subject,
+        Body : content
+    }).then(
+        response => {
+            if (response === "OK") {
+                alert("Wyniki zostały wysłane pomyślnie.\nMożna już zamknąć to okno.");
+            }
+        })
 }
