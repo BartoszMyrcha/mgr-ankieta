@@ -1,6 +1,7 @@
 const Speakers = 4;
 
-var results = [];
+var results = {};
+var results_list = [];
 var recordings = [];
 var recording;
 var iterator = 0;
@@ -15,7 +16,83 @@ for(var i=1; i<=Speakers; i++) {
 recordings = shuffle(recordings);
 
 window.onload = function () {
-    initialize_subDiv()
+    initialize_form()
+}
+
+function initialize_form() {
+    let form = document.createElement("DIV");
+    form.setAttribute('id', 'form');
+    form.setAttribute('align', 'center');
+    
+    let p1 = document.createElement("P");
+    let sex_label = document.createElement("TEXT");
+    sex_label.textContent = "Płeć: ";
+    let sex_select = document.createElement("SELECT");
+    sex_select.setAttribute("id", "sex_select");
+    let opts = ["M", "K", "-"];
+    for (let i=0; i<opts.length; i++)
+    {
+        let option = document.createElement("option");
+        option.text = opts[i];
+        sex_select.options.add(option, i)
+    }
+
+    p1.appendChild(sex_label)
+    p1.appendChild(sex_select);
+    form.appendChild(p1);
+
+    let p2 = document.createElement("P");
+    let age_label = document.createElement("TEXT");
+    age_label.textContent = "Wiek: ";
+    let age_input = document.createElement("INPUT");
+    age_input.setAttribute("type", "text");
+    age_input.setAttribute("maxlength", "2");
+    age_input.setAttribute("size", "1");
+    age_input.setAttribute("id", "age_input");
+    age_input.setAttribute("onkeypress", "isNumber(event)");
+
+    p2.appendChild(age_label);
+    p2.appendChild(age_input);
+    form.appendChild(p2);
+
+    let p3 = document.createElement("P");
+    let education_label = document.createElement("TEXT");
+    education_label.textContent = "Wykształcenie muzyczne: "
+    
+    let p4 = document.createElement("P");
+    let radio1 = document.createElement("INPUT");
+    radio1.setAttribute("type", "radio");
+    radio1.setAttribute("name", "education");
+    radio1.setAttribute("value", "tak");
+    let radio1_label = document.createElement("LABEL");
+    radio1_label.textContent = "Tak";
+    
+    let radio2 = document.createElement("INPUT");
+    radio2.setAttribute("type", "radio");
+    radio2.setAttribute("name", "education");
+    radio2.setAttribute("value", "nie");
+    let radio2_label = document.createElement("LABEL");
+    radio2_label.textContent = "Nie";
+    
+    let p5 = document.createElement("P");
+
+    p3.appendChild(education_label);
+    p4.appendChild(radio1);
+    p4.appendChild(radio1_label);
+    p5.appendChild(radio2);
+    p5.appendChild(radio2_label);
+    p3.appendChild(p4);
+    p3.appendChild(p5)
+    form.appendChild(p3);
+
+    let next = document.createElement("BUTTON");
+    next.setAttribute("onClick", "saveForm()");
+    next.innerHTML = "Dalej"
+
+    form.appendChild(next);
+
+    let parent = document.getElementById("mainDiv");
+    parent.appendChild(form);
 }
 
 function initialize_subDiv() {
@@ -35,6 +112,7 @@ function initialize_subDiv() {
     } else {
         console.error("Parent not found.")
     }
+    LoadColorPalette()
 }
 
 function insertAudioPlayer(parent, audioPath) {
@@ -71,35 +149,23 @@ function insertNextButton(parent) {
     nextButton.setAttribute("id", "nextbutton");
     nextButton.setAttribute("class", "nextbutton");
     nextButton.setAttribute("onClick", "nextButtonClick()");
-    nextButton.innerHTML = "Next"
+    nextButton.innerHTML = "Dalej"
     appendChild(paragraph, nextButton)
     appendChild(parent, paragraph);
 }
 
 // Color Palette setup
 
-window.addEventListener("load", function () {
+function LoadColorPalette() {
     var pk = new Piklor(".color-picker", [
-            "#1abc9c"
-          , "#2ecc71"
-          , "#3498db"
-          , "#9b59b6"
-          , "#34495e"
-          , "#16a085"
-          , "#27ae60"
-          , "#2980b9"
-          , "#8e44ad"
-          , "#2c3e50"
-          , "#f1c40f"
-          , "#e67e22"
-          , "#e74c3c"
-          , "#ecf0f1"
-          , "#95a5a6"
-          , "#f39c12"
-          , "#d35400"
-          , "#c0392b"
-          , "#bdc3c7"
-          , "#7f8c8d"
+            "#000000",
+            "#7f0000",
+            "#ff0000",
+            "#007f00",
+            "#00ff00",
+            "#00007f",
+            "#0000ff",
+            "#ffffff"
         ], {
             open: ".picker-wrapper .btn"
         })
@@ -113,9 +179,27 @@ window.addEventListener("load", function () {
         let nextButton = document.getElementById("nextbutton")
         nextButton.removeAttribute("disabled")
     });
-});
+};
 
 // Helper methods
+function isNumber(e) {
+    var ch = String.fromCharCode(e.which);
+
+    if(!(/[0-9]/.test(ch))) {
+        e.preventDefault();
+    }
+}
+
+function saveForm() {
+    let sex = document.getElementById("sex_select").value;
+    let age = document.getElementById("age_input").value;
+    let education = document.querySelector('input[name="education"]:checked').value;
+    results["personal_info"] = {"Sex": sex, "Age": age, "MusicEducation": education}
+    let form = document.getElementById("form");
+    form.parentNode.removeChild(form);
+    initialize_subDiv()
+}
+
 function shuffle(array) {
 
 	let currentIndex = array.length;
@@ -136,7 +220,7 @@ function shuffle(array) {
 function nextButtonClick() {
     let textBox = document.getElementById("picker-text");
     let color = textBox.value;
-    results.push({"Nagranie": recordings[iterator], "Kolor": color})
+    results_list.push({"Recording": recordings[iterator], "Color": color})
     iterator++;
     let nextbutton = document.getElementById("nextbutton");
     nextbutton.setAttribute("disabled", "true");
@@ -150,6 +234,7 @@ function nextButtonClick() {
         loadNextRecording(recordPath);
     } else {
         alert("Koniec. Dziękujemy za udział w ankiecie.")
+        results["results"] = results_list;
         sendResults("Wyniki ankiety", JSON.stringify(results));
     }
 }
