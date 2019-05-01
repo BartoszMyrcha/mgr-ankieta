@@ -99,7 +99,6 @@
             html += self.options.template.replace(/\{color\}/g, c);
             el_counter++;
             if (el_counter == el_in_row) {
-                console.log("adding new line")
                 html += "</br>"
                 el_counter = 0;
             }
