@@ -1,5 +1,5 @@
-const Speakers = 4;
-
+const Speakers = 12;
+const speakers_with_2_recordings = [4, 6, 7, 8, 9, 11]
 var results = {};
 var results_list = [];
 var recordings = [];
@@ -9,7 +9,7 @@ var iterator = 0;
 for(var i=1; i<=Speakers; i++) {
     recordings.push(i + "." + 1 + ".wav");
     recordings.push(i + "." + 2 + ".wav");
-    if (i==4) continue;
+    if (speakers_with_2_recordings.includes(i)) continue;
     recordings.push(i + "." + 3 + ".wav");
 }
 
@@ -159,13 +159,21 @@ function insertNextButton(parent) {
 function LoadColorPalette() {
     var pk = new Piklor(".color-picker", [
             "#000000",
-            "#7f0000",
-            "#ff0000",
-            "#007f00",
-            "#00ff00",
-            "#00007f",
-            "#0000ff",
-            "#ffffff"
+            "#FFFFFF",
+            "#FF0000",
+            "#00FF00",
+            "#0000FF",
+            "#FFFF00",
+            "#00FFFF",
+            "#FF00FF",
+            "#C0C0C0",
+            "#808080",
+            "#800000",
+            "#808000",
+            "#008000",
+            "#800080",
+            "#008080",
+            "#000080"
         ], {
             open: ".picker-wrapper .btn"
         })
