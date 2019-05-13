@@ -21,7 +21,7 @@
      *
      * @return {Piklor} The `Piklor` instance.
      */
-    function Piklor(sel, colors, options) {
+    function Piklor(sel, colors, el_in_row, options) {
         var self = this;
         options = options || {};
         options.open = self.getElm(options.open);
@@ -34,6 +34,7 @@
         self.cbs = [];
         self.isOpen = true;
         self.colors = colors;
+        self.el_in_row = el_in_row;
         self.options = options;
         self.render();
 
@@ -93,12 +94,11 @@
         var self = this
           , html = ""
           ;
-        let el_in_row = 4;
         let el_counter = 0;
         self.colors.forEach(function (c) {
             html += self.options.template.replace(/\{color\}/g, c);
             el_counter++;
-            if (el_counter == el_in_row) {
+            if (el_counter == self.el_in_row) {
                 html += "</br>"
                 el_counter = 0;
             }
