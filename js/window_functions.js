@@ -6,14 +6,22 @@ function initialize_intro() {
     intro.setAttribute('align', 'center');
 
     let header_p = document.createElement("P");
-    header_p.innerText = `Witamy!\nAnkieta ta jest częścią pracy magisterskiej:\n\"Analiza korelacji pomiędzy brzmieniem głosu i kolorem przypisanym do mówcy\".\n\
-    Twoim zadaniem będzie odsłuchanie nagrań oraz przypisanie do każdego z nich po jednym kolorze z palety barw.\nProsimy aby udzielane odpowiedzi były jak najbardziej instynktowne.\n\n\
-    Wciskając przycisk z ikoną głośnika można sprawdzić poprawność podłączenia głośników. Jeśli po jego przyciśnięciu słychać dźwięk - można przejść dalej.`
+    header_p.innerText = `Witamy!\nAnkieta ta jest częścią pracy magisterskiej:\n\"Analiza korelacji pomiędzy brzmieniem głosu i kolorem przypisanym do mówcy\".\n\n\
+    Twoim zadaniem będzie odsłuchanie nagrań oraz przypisanie do każdego z nich po jednym kolorze z palety barw.\nProsimy aby udzielane odpowiedzi były jak najbardziej instynktowne.`
+
+    let tutorial_p = document.createElement("P");
+    let tutorial = document.createElement("IMG");
+    tutorial.setAttribute("src", "assets/tutorial.gif");
+    tutorial.setAttribute("id", "tutorial");
+    tutorial_p.appendChild(tutorial);
 
     let test_button_p = document.createElement("P");
+    let test_info = document.createElement("P");
+    test_info.innerText = "Wciskając przycisk z ikoną głośnika można sprawdzić poprawność podłączenia głośników. Jeśli po jego przyciśnięciu słychać dźwięk - można przejść dalej.\n\n"
     let test_button = document.createElement("BUTTON");
     test_button.setAttribute("id", "speaker-icon");
     test_button.setAttribute("onClick", "playTestSound()");
+    test_button_p.appendChild(test_info);
     test_button_p.appendChild(test_button);
 
     let next_button_p = document.createElement("P");
@@ -23,6 +31,7 @@ function initialize_intro() {
     next_button_p.appendChild(next_button); 
 
     intro.appendChild(header_p);
+    intro.appendChild(tutorial_p);
     intro.append(test_button_p);
     intro.appendChild(next_button_p);
     
