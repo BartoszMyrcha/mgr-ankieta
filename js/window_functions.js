@@ -167,7 +167,7 @@ function loadNextRecording(audioPath) {
 function insertColorPalette(parent) {
     let palette = document.createElement("colorPalette");
     palette.innerHTML = `<div class="picker-wrapper" id="picker-wrapper" hidden>
-                            <button class="btn btn-default">Select color</button>
+                            <button class="btn btn-default">Wybierz kolor</button>
                             <div class="color-picker"></div>
                             <div id="color-selected" class="color-selected"></div>
                             <input type="text" disabled="true" id="picker-text" class="picker-text" hidden>
