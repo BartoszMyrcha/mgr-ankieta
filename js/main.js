@@ -19,5 +19,5 @@ for(var i=1; i<=Speakers; i++) {
 recordings = shuffle(recordings);
 
 window.onload = function () {
-    initialize_form()
+    initialize_intro()
 }

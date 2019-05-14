@@ -1,10 +1,47 @@
 const sex_opts = ["M", "K", "-"];
 
+function initialize_intro() {
+    let intro = document.createElement("DIV");
+    intro.setAttribute('id', 'intro');
+    intro.setAttribute('align', 'center');
+
+    let header_p = document.createElement("P");
+    header_p.innerText = `Witamy!\nAnkieta ta jest częścią pracy magisterskiej:\n\"Analiza korelacji pomiędzy brzmieniem głosu i kolorem przypisanym do mówcy\".\n\
+    Twoim zadaniem będzie odsłuchanie nagrań oraz przypisanie do każdego z nich po jednym kolorze z palety barw.\nProsimy aby udzielane odpowiedzi były jak najbardziej instynktowne.\n\n\
+    Wciskając przycisk z ikoną głośnika można sprawdzić poprawność podłączenia głośników. Jeśli po jego przyciśnięciu słychać dźwięk - można przejść dalej.`
+
+    let test_button_p = document.createElement("P");
+    let test_button = document.createElement("BUTTON");
+    test_button.setAttribute("id", "speaker-icon");
+    test_button.setAttribute("onClick", "playTestSound()");
+    test_button_p.appendChild(test_button);
+
+    let next_button_p = document.createElement("P");
+    let next_button = document.createElement("BUTTON");
+    next_button.setAttribute("onClick", "introExit()");
+    next_button.innerHTML = "Przejdź do ankiety";
+    next_button_p.appendChild(next_button); 
+
+    intro.appendChild(header_p);
+    intro.append(test_button_p);
+    intro.appendChild(next_button_p);
+    
+    let parent = document.getElementById("mainDiv");
+    parent.appendChild(intro);
+}
+
+function playTestSound() {
+    let snd = new Audio("nagrania/test.wav");
+    snd.play();
+}
+
+function introExit() {
+    let intro = document.getElementById("intro");
+    intro.parentNode.removeChild(intro);
+    initialize_form()
+}
 
 function initialize_form() {
-    alert("Witamy!\nAnkieta ta jest częścią pracy magisterskiej:\n\"Analiza korelacji pomiędzy brzmieniem głosu i kolorem przypisanym do mówcy\".\n\
-Twoim zadaniem będzie odsłuchanie nagrań oraz przypisanie do każdego z nich po jednym kolorze z palety barw.\nProsimy aby udzielane odpowiedzi były jak najbardziej instynktowne.\n\n\
-Wciśnij OK aby przejść dalej.")
     let form = document.createElement("DIV");
     form.setAttribute('id', 'form');
     form.setAttribute('align', 'center');
