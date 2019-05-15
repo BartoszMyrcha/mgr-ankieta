@@ -319,7 +319,7 @@ function nextButtonClick() {
     let nextbutton = document.getElementById("nextbutton");
     nextbutton.setAttribute("disabled", "true");
     
-    if (iterator < recordings.length) {
+    if (iterator < questions) {
         let selectedCol = document.getElementById("color-selected");
         selectedCol.removeAttribute('style');
         manipulatePicker('display', 'none');
