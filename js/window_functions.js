@@ -1,57 +1,58 @@
 const sex_opts = ["M", "K", "-"];
 
 function initialize_intro() {
-    let intro = document.createElement("DIV");
+    var intro = document.createElement("DIV");
     intro.setAttribute('id', 'intro');
     intro.setAttribute('align', 'center');
 
-    let header_p = document.createElement("P");
-    header_p.innerText = `Witamy!\nAnkieta ta jest częścią pracy magisterskiej:\n\"Analiza korelacji pomiędzy brzmieniem głosu i kolorem przypisanym do mówcy\".\n\n\
-    Twoim zadaniem będzie odsłuchanie nagrań oraz przypisanie do każdego z nich po jednym kolorze z palety barw.\nProsimy aby udzielane odpowiedzi były jak najbardziej instynktowne.`
+    var header_p = document.createElement("P");
+    header_p.innerText = "Witamy!\nAnkieta ta jest częścią pracy magisterskiej:\n\"Analiza korelacji pomiędzy brzmieniem głosu i kolorem przypisanym do mówcy\".\n\n\
+    Twoim zadaniem będzie odsłuchanie nagrań oraz przypisanie do każdego z nich po jednym kolorze z palety barw.\nProsimy aby udzielane odpowiedzi były jak najbardziej instynktowne."
 
-    let tutorial_p = document.createElement("P");
-    let tutorial = document.createElement("IMG");
+    var tutorial_p = document.createElement("P");
+    var tutorial = document.createElement("IMG");
     tutorial.setAttribute("src", "assets/tutorial.gif");
     tutorial.setAttribute("id", "tutorial");
     tutorial_p.appendChild(tutorial);
 
-    let test_button_p = document.createElement("P");
-    let test_info = document.createElement("P");
+    var test_button_p = document.createElement("P");
+    var test_info = document.createElement("P");
     test_info.innerText = "Wciskając przycisk z ikoną głośnika można sprawdzić poprawność podłączenia głośników. Jeśli po jego przyciśnięciu słychać dźwięk - można przejść dalej.\n\n"
-    let test_button = document.createElement("BUTTON");
+    var test_button = document.createElement("BUTTON");
     test_button.setAttribute("id", "speaker-icon");
     test_button.setAttribute("onClick", "playTestSound()");
     test_button_p.appendChild(test_info);
     test_button_p.appendChild(test_button);
 
-    let next_button_p = document.createElement("P");
-    let next_button = document.createElement("BUTTON");
+    var next_button_p = document.createElement("P");
+    var next_button = document.createElement("BUTTON");
     next_button.setAttribute("onClick", "introExit()");
     next_button.innerHTML = "Przejdź do ankiety";
     next_button_p.appendChild(next_button); 
 
-    intro.appendChild(header_p);
+    intro.appendChild(header_p)
     intro.appendChild(tutorial_p);
-    intro.append(test_button_p);
+    intro.appendChild(test_button_p);
     intro.appendChild(next_button_p);
     
-    let parent = document.getElementById("mainDiv");
+    var parent = document.getElementById("mainDiv");
     parent.appendChild(intro);
 }
 
 function playTestSound() {
-    let snd = new Audio("nagrania/test.wav");
+    var snd = new Audio("nagrania/test.wav");
+    console.log("Playing");
     snd.play();
 }
 
 function introExit() {
-    let intro = document.getElementById("intro");
+    var intro = document.getElementById("intro");
     intro.parentNode.removeChild(intro);
     initialize_form()
 }
 
 function initialize_form() {
-    let form = document.createElement("DIV");
+    var form = document.createElement("DIV");
     form.setAttribute('id', 'form');
     form.setAttribute('align', 'center');
     
@@ -60,26 +61,26 @@ function initialize_form() {
     init_choice("Wykształcenie muzyczne:", "education", form);
     init_choice("Zdolności plastyczne:", "artistic", form);
 
-    let next = document.createElement("BUTTON");
+    var next = document.createElement("BUTTON");
     next.setAttribute("onClick", "saveForm()");
     next.innerHTML = "Dalej"
 
     form.appendChild(next);
 
-    let parent = document.getElementById("mainDiv");
+    var parent = document.getElementById("mainDiv");
     parent.appendChild(form);
 }
 
 function init_sex_choice(parent) {
-    let p = document.createElement("P");
-    let sex_label = document.createElement("TEXT");
+    var p = document.createElement("P");
+    var sex_label = document.createElement("TEXT");
     sex_label.textContent = "Płeć: ";
-    let sex_select = document.createElement("SELECT");
+    var sex_select = document.createElement("SELECT");
     sex_select.setAttribute("id", "sex_select");
     
-    for (let i=0; i<sex_opts.length; i++)
+    for (var i=0; i<sex_opts.length; i++)
     {
-        let option = document.createElement("option");
+        var option = document.createElement("option");
         option.text = sex_opts[i];
         sex_select.options.add(option, i)
     }
@@ -90,10 +91,10 @@ function init_sex_choice(parent) {
 }
 
 function init_age_input(parent) {
-    let p = document.createElement("P");
-    let age_label = document.createElement("TEXT");
+    var p = document.createElement("P");
+    var age_label = document.createElement("TEXT");
     age_label.textContent = "Wiek: ";
-    let age_input = document.createElement("INPUT");
+    var age_input = document.createElement("INPUT");
     age_input.setAttribute("type", "text");
     age_input.setAttribute("maxlength", "2");
     age_input.setAttribute("size", "1");
@@ -106,24 +107,24 @@ function init_age_input(parent) {
 }
 
 function init_choice(text, group_name, parent) {
-    let p = document.createElement("P");
-    let label = document.createElement("TEXT");
+    var p = document.createElement("P");
+    var label = document.createElement("TEXT");
     label.textContent = text;
     
-    let radio1_p = document.createElement("P");
-    let radio1 = document.createElement("INPUT");
+    var radio1_p = document.createElement("P");
+    var radio1 = document.createElement("INPUT");
     radio1.setAttribute("type", "radio");
     radio1.setAttribute("name", group_name);
     radio1.setAttribute("value", "tak");
-    let radio1_label = document.createElement("LABEL");
+    var radio1_label = document.createElement("LABEL");
     radio1_label.textContent = "Tak";
     
-    let radio2_p = document.createElement("P");
-    let radio2 = document.createElement("INPUT");
+    var radio2_p = document.createElement("P");
+    var radio2 = document.createElement("INPUT");
     radio2.setAttribute("type", "radio");
     radio2.setAttribute("name", group_name);
     radio2.setAttribute("value", "nie");
-    let radio2_label = document.createElement("LABEL");
+    var radio2_label = document.createElement("LABEL");
     radio2_label.textContent = "Nie";
 
     radio1_p.appendChild(radio1);
@@ -138,17 +139,17 @@ function init_choice(text, group_name, parent) {
 }
 
 function initialize_subDiv() {
-    let div = document.createElement("div");
+    var div = document.createElement("div");
     div.setAttribute('id', 'subDiv')
     div.setAttribute('align', 'center');
 
-    let recordPath = getRecordPath(recordings[iterator]);
+    var recordPath = getRecordPath(recordings[iterator]);
 
     insertAudioPlayer(div, recordPath)
     insertColorPalette(div);
     insertNextButton(div)
 
-    let parent = document.getElementById("mainDiv")
+    var parent = document.getElementById("mainDiv")
     if (parent != null) {
         parent.appendChild(div);   
     } else {
@@ -158,35 +159,36 @@ function initialize_subDiv() {
 }
 
 function insertAudioPlayer(parent, audioPath) {
-    let player = document.createElement("audioPlayer");
-    player.innerHTML = `<audio controls id="player" onended="manipulatePicker('display', 'block')">
-                        <source id="playerSource" src="` + audioPath + `" type="audio/wav">
-                        Your browser does not support the audio element.
-                        </audio>`;
+    console.log(audioPath);
+    var player = document.createElement("audioPlayer");
+    player.innerHTML = "<audio controls id=\"player\" onended=\"manipulatePicker('display', 'block')\">\
+                        <source id=\"playerSource\" src=\"" + audioPath + "\" type=\"audio/wav\">\
+                        Your browser does not support the audio element.\
+                        </audio>";
     appendChild(parent, player);
 }
 
 function loadNextRecording(audioPath) {
-    let playerSource = document.getElementById("playerSource");
-    let player = document.getElementById("player")
+    var playerSource = document.getElementById("playerSource");
+    var player = document.getElementById("player")
     playerSource.src = audioPath;
     player.load()
 }
 
 function insertColorPalette(parent) {
-    let palette = document.createElement("colorPalette");
-    palette.innerHTML = `<div class="picker-wrapper" id="picker-wrapper" hidden>
-                            <button class="btn btn-default">Wybierz kolor</button>
-                            <div class="color-picker"></div>
-                            <div id="color-selected" class="color-selected"></div>
-                            <input type="text" disabled="true" id="picker-text" class="picker-text" hidden>
-                        </div>`;
+    var palette = document.createElement("colorPalette");
+    palette.innerHTML = "<div class=\"picker-wrapper\" id=\"picker-wrapper\" hidden>\
+                            <button class=\"btn btn-default\">Wybierz kolor</button>\
+                            <div class=\"color-picker\"></div>\
+                            <div id=\"color-selected\" class=\"color-selected\"></div>\
+                            <input type=\"text\" disabled=\"true\" id=\"picker-text\" class=\"picker-text\" hidden>\
+                        </div>";
     appendChild(parent, palette);
 }
 
 function insertNextButton(parent) {
-    let paragraph = document.createElement("P")
-    let nextButton = document.createElement("BUTTON");
+    var paragraph = document.createElement("P")
+    var nextButton = document.createElement("BUTTON");
     nextButton.setAttribute("disabled", "true");
     nextButton.setAttribute("id", "nextbutton");
     nextButton.setAttribute("class", "nextbutton");
@@ -270,7 +272,7 @@ function LoadColorPalette() {
     pk.colorChosen(function (col) {
         textBox.value = col;
         selectedCol.style.backgroundColor = col;
-        let nextButton = document.getElementById("nextbutton")
+        var nextButton = document.getElementById("nextbutton")
         nextButton.removeAttribute("disabled")
     });
 };
@@ -284,20 +286,20 @@ function isNumber(e) {
 }
 
 function saveForm() {
-    let sex = document.getElementById("sex_select").value;
-    let age = document.getElementById("age_input").value;
-    let education = document.querySelector('input[name="education"]:checked').value;
-    let artistic = document.querySelector('input[name="artistic"]:checked').value;
+    var sex = document.getElementById("sex_select").value;
+    var age = document.getElementById("age_input").value;
+    var education = document.querySelector('input[name="education"]:checked').value;
+    var artistic = document.querySelector('input[name="artistic"]:checked').value;
     results["personal_info"] = {"Sex": sex, "Age": age, "MusicEducation": education, "ArtisticAbilities": artistic}
-    let form = document.getElementById("form");
+    var form = document.getElementById("form");
     form.parentNode.removeChild(form);
     initialize_subDiv()
 }
 
 function shuffle(array) {
 
-	let currentIndex = array.length;
-	let temporaryValue, randomIndex;
+	var currentIndex = array.length;
+	var temporaryValue, randomIndex;
 
 	while (0 !== currentIndex) {
 		randomIndex = Math.floor(Math.random() * currentIndex);
@@ -312,19 +314,19 @@ function shuffle(array) {
 };
 
 function nextButtonClick() {
-    let textBox = document.getElementById("picker-text");
-    let color = textBox.value;
+    var textBox = document.getElementById("picker-text");
+    var color = textBox.value;
     results_list.push({"Recording": recordings[iterator], "Color": color})
     iterator++;
-    let nextbutton = document.getElementById("nextbutton");
+    var nextbutton = document.getElementById("nextbutton");
     nextbutton.setAttribute("disabled", "true");
     
     if (iterator < questions) {
-        let selectedCol = document.getElementById("color-selected");
+        var selectedCol = document.getElementById("color-selected");
         selectedCol.removeAttribute('style');
         manipulatePicker('display', 'none');
 
-        let recordPath = getRecordPath(recordings[iterator]);
+        var recordPath = getRecordPath(recordings[iterator]);
         loadNextRecording(recordPath);
     } else {
         alert("Koniec. Dziękujemy za udział w ankiecie.")
@@ -337,7 +339,7 @@ function appendChild(parent, element) {
     try {
         parent.appendChild(element);
     }
-    catch {
+    catch (e){
         if (parent == null) {
             throw "Parent not found!"
         }
@@ -372,10 +374,9 @@ function sendResults(subject, content) {
         From : "ankieta.mgr.idio@gmail.com",
         Subject : subject,
         Body : content
-    }).then(
-        response => {
-            if (response === "OK") {
-                alert("Wyniki zostały wysłane pomyślnie.\nMożna już zamknąć to okno.");
-            }
-        })
+    }).then(function (response) {
+        if (response === "OK") {
+            alert("Wyniki zostały wysłane pomyślnie.\nMożna już zamknąć to okno.");
+        }
+    });
 }
