@@ -94,7 +94,7 @@
         var self = this
           , html = ""
           ;
-        let el_counter = 0;
+        var el_counter = 0;
         self.colors.forEach(function (c) {
             html += self.options.template.replace(/\{color\}/g, c);
             el_counter++;

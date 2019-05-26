@@ -1,7 +1,7 @@
 // ----------CONSTS------------
 const Speakers = 12;
-const speakers_with_2_recordings = [4, 6, 7, 8, 9, 11]
-const questions = 15 // Number of questions in survey
+const speakers_with_2_recordings = [4, 6, 7, 8, 9, 11];
+const questions = 15; // Number of questions in survey
 // ----------------------------
 
 var results = {};
