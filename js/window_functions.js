@@ -59,7 +59,7 @@ function initialize_form() {
     init_sex_choice(form);
     init_age_input(form);
     init_choice("Wykształcenie muzyczne:", "education", form);
-    init_choice("Zdolności plastyczne:", "artistic", form);
+    init_choice("Czy masz problemy z postrzeganiem kolorów:", "colorblind", form);
 
     var next = document.createElement("BUTTON");
     next.setAttribute("onClick", "saveForm()");
@@ -289,8 +289,8 @@ function saveForm() {
     var sex = document.getElementById("sex_select").value;
     var age = document.getElementById("age_input").value;
     var education = document.querySelector('input[name="education"]:checked').value;
-    var artistic = document.querySelector('input[name="artistic"]:checked').value;
-    results["personal_info"] = {"Sex": sex, "Age": age, "MusicEducation": education, "ArtisticAbilities": artistic}
+    var colorblind = document.querySelector('input[name="colorblind"]:checked').value;
+    results["personal_info"] = {"Sex": sex, "Age": age, "MusicEducation": education, "ColorBlind": colorblind}
     var form = document.getElementById("form");
     form.parentNode.removeChild(form);
     initialize_subDiv()
