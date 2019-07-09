@@ -315,8 +315,8 @@ function shuffle(array) {
 
 function nextButtonClick() {
     var textBox = document.getElementById("picker-text");
-    var color = textBox.value;
-    results_list.push({"Recording": recordings[iterator], "Color": color})
+    var color = textBox.value;    
+    results_list.push({"Recording": normalizeRecordNumber(recordings[iterator]), "Color": color})
     iterator++;
     var nextbutton = document.getElementById("nextbutton");
     nextbutton.setAttribute("disabled", "true");
@@ -379,4 +379,14 @@ function sendResults(subject, content) {
             alert("Wyniki zostały wysłane pomyślnie.\nMożna już zamknąć to okno.");
         }
     });
+}
+
+function normalizeNumber(number) {
+    return (number < 10) ? '0' + number.toString() : number.toString();
+}
+
+function normalizeRecordNumber(recordingName) {
+    var splitted = recordingName.split(".");
+    splitted[0] = normalizeNumber(splitted[0]);
+    return splitted.join(".");
 }
