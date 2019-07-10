@@ -159,7 +159,6 @@ function initialize_subDiv() {
 }
 
 function insertAudioPlayer(parent, audioPath) {
-    console.log(audioPath);
     var player = document.createElement("audioPlayer");
     player.innerHTML = "<audio controls id=\"player\" onended=\"manipulatePicker('display', 'block')\">\
                         <source id=\"playerSource\" src=\"" + audioPath + "\" type=\"audio/wav\">\

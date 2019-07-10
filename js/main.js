@@ -17,6 +17,16 @@ for(var i=1; i<=Speakers; i++) {
     recordings.push(i + "." + 3 + ".wav");
 }
 
+// Remove common sample to avoid duplicate
+for( var i = 0; i < recordings.length; i++){ 
+    if ( recordings[i] === "2.2.wav") {
+      recordings.splice(i, 1); 
+    }
+ } 
+
+recordings = shuffle(recordings);
+recordings = recordings.slice(1, questions); // Limit recordings to questions number 
+recordings.push("2.2.wav"); // Common sample for all surveys
 recordings = shuffle(recordings);
 
 window.onload = function () {
